@@ -5,7 +5,7 @@ def single_root_world(root_worg, *Other_world):
     for world in Other_world:
         world_lower = world.lower()
 
-        if root_worg_lower in world_lower or world_lower or world_lower in root_worg_lower:
+        if root_worg_lower in world_lower or world_lower in root_worg_lower:
             some_world.append(world)
 
     return some_world
