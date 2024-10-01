@@ -29,16 +29,16 @@ class Pegasus(Horse, Eagle):
         return (self.x_distance, self.y_distance)
 
     def voice(self):
-        print(self.sound) 
+        print(self.sound)
 
 
-# Создание объекта класса Pegasus и тестирование методов
+
 p1 = Pegasus()
 
-print(p1.get_pos())  # (0, 0)
+print(p1.get_pos()) 
 p1.move(10, 15)
-print(p1.get_pos())  # (10, 15)
+print(p1.get_pos())  
 p1.move(-5, 20)
-print(p1.get_pos())  # (5, 35)
+print(p1.get_pos()) 
 
-p1.voice()
+p1.voice() 
