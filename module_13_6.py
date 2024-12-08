@@ -3,7 +3,7 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
 
-api = '8055154686:AAF_YndX1nuHdGOKyq5-6WNb-ZwGQQ6UYa4'
+api = ''
 bot = Bot(token=api)
 dp = Dispatcher(bot, storage=MemoryStorage())
 
@@ -19,8 +19,8 @@ kb.row(button2)
 kb2 = InlineKeyboardMarkup()
 in_button1 = InlineKeyboardButton(text='Рассчитать норму калорий', callback_data='calories')
 in_button2 = InlineKeyboardButton(text='Формулы расчёта', callback_data='formulas')
-kb2.add(in_button1)
-kb2.add(in_button2)
+kb2.row(in_button1)
+kb2.row(in_button2)
 
 class UserState(StatesGroup):
     age = State()
@@ -44,8 +44,7 @@ async def main_menu(message):
 
 @dp.callback_query_handler(text='formulas')
 async def get_formulas(call):
-    await call.message.answer('для мужчин: 10 х вес (кг) + 6,25 x рост (см) – 5 х возраст (г) + 5;'
-                              '\nдля женщин: 10 x вес (кг) + 6,25 x рост (см) – 5 x возраст (г) – 161')
+    await call.message.answer('10 х вес (кг) + 6,25 x рост (см) – 5 х возраст (г) - 161;')                
     await call.answer()
 
 @dp.callback_query_handler(text='calories')
@@ -73,7 +72,7 @@ async def send_calories(message, state):
     data = await state.get_data()
     mans = (10*int(data['weight'])+6.25*int(data['growth'])-5*int(data['age'])+5)
     wumans = (10 * int(data['weight']) + 6.25 * int(data['growth']) - 5 * int(data['age']) - 161)
-    await message.answer(f'При таких параметрах норма калорий: \nдля мужчин {mans} ккал в сутки \nдля женщин {wumans} ккал в сутки')
+    await message.answer(f'При таких параметрах норма калорий:  {mans} ккал в сутки ')
     await UserState.weight.set()
     await state.finish()
 
