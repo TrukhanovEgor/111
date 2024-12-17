@@ -3,12 +3,12 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
 
-api = '7528510272:AAHUXVlEE9Trtpk-MVC9_IOCQBdOt_iThjI'
+api = ''
 bot = Bot(token=api)
 dp = Dispatcher(bot, storage=MemoryStorage())
 
 
-# ------ Марк ап клавиатура (с кнопками)----------------
+# Марк ап клавиатура
 kb = ReplyKeyboardMarkup(resize_keyboard=True)
 button = KeyboardButton(text='Информация')
 button2 = KeyboardButton(text='Рассчитать')
@@ -17,7 +17,7 @@ kb.row(button)
 kb.row(button2)
 kb.row(button3)
 
-#-------- Ин лайн клавиатура (с кнопками)----------------
+#Ин лайн клавиатура 
 kb2 = InlineKeyboardMarkup()
 in_button1 = InlineKeyboardButton(text='Рассчитать норму калорий', callback_data='calories')
 in_button2 = InlineKeyboardButton(text='Формулы расчёта', callback_data='formulas')
@@ -102,14 +102,12 @@ async def send_product_list(message):
         await message.answer(f'Название: {product_name} | '
                              f'Описание: {product_description} | '
                              f'Цена: {product_price}')
-        #with open (f'{i}.png', 'rb') as img:
+        
         with open(f'{i}.png', 'rb') as img:
-        #with open('1.png', 'rb') as img1:
+        
             await message.answer_photo(img)
     await message.answer('Выберите продукт для покупки:', reply_markup=kb3)
-    #  with open('files/1.png', 'rb') as img1:
-    #     await message.answer_photo(img1, reply_markup=kb3, )
-    # await message.answer()
+    
 
 @dp.callback_query_handler(text='product_buying')
 async def send_confirm_message(call):
@@ -118,7 +116,7 @@ async def send_confirm_message(call):
 
 @dp.message_handler()
 async def all_message(message):
-    # print('Введите команду /start, чтобы начать общение.')
+    
     await message.answer('Введите команду /start, чтобы начать общение.')
 
 
