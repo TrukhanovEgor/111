@@ -95,18 +95,21 @@ async def send_calories(message, state):
 
 @dp.message_handler(text='Купить')
 async def send_product_list(message):
-    for i in range(1, 5):
+    products = get_all_products()  # Получаем список продуктов из функции
+
+    for product in products:
+        i, product_title, product_description, product_price = product
         
-        product_name = f'{i}'
-        product_description = f'описание {i}'
-        product_price = i * 100
-        await message.answer(f'Название: {product_name} | '
+        await message.answer(f'Название: {product_title} | '
                              f'Описание: {product_description} | '
                              f'Цена: {product_price}')
-        
-        with open(f'{i}.png', 'rb') as img:
-        
-            await message.answer_photo(img)
+
+        try:
+            with open(f'{i}.png', 'rb') as img:
+                await message.answer_photo(img)
+        except FileNotFoundError:
+            await message.answer('Изображение не найдено.')
+    
     await message.answer('Выберите продукт для покупки:', reply_markup=kb3)
     
 
